@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Unothing</string>
+    <string name="img_desc">Image</string>>
+    <string name="hide_text">\???</string>
+    <string name="ques_on">Hide Question</string>
+    <string name="ques_off">Show Question</string>
+    <string name="answ_off">Show Answer</string>
+    <string name="answ_on">Hide Answer</string>
+    <string name="next_btn">Next</string>
+</resources>

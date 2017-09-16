@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="id">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="ques">
+        <item>What is his real name?</item>
+        <item>What is his nickname?</item>
+        <item>He saved whom in \nThe Spoils of War(S7E4)?</item>
+        <item>In the destruction of \nthe Sept, she killed all of\nHouse Tyrell except whom?</item>
+        <item>What is her title right now?</item>
+        <item>Where did he born?</item>
+        <item>What is the name of \nher sword?</item>
+        <item>After whose advice,\nshe brought Jon Snow \nback to life?</item>
+    </string-array>
+    <string-array name="answ">
+        <item>Aegon Targaryen</item>
+        <item>Kingslayer</item>
+        <item>Jaime Lannister</item>
+        <item>Olenna Tyrell</item>
+        <item>Lady of Winterfell</item>
+        <item>Flea Bottom</item>
+        <item>Oathkeeper</item>
+        <item>Onion Knight</item>
+    </string-array>
+</resources>
