@@ -5,7 +5,7 @@ public interface ICard {
 
     String getImage();
 
-    String getQuestion();
+    String getQues();
 
-    String getAnswer();
+    String getAnsw();
 }

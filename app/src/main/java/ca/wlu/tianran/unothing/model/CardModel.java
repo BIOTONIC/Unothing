@@ -3,14 +3,14 @@ package ca.wlu.tianran.unothing.model;
 public class CardModel implements ICard {
     int id;
     String image;
-    String question;
-    String answer;
+    String ques;
+    String answ;
 
-    public CardModel(int id, String image, String question, String answer) {
+    public CardModel(int id, String image, String ques, String answ) {
         this.id = id;
         this.image = image;
-        this.question = question;
-        this.answer = answer;
+        this.ques = ques;
+        this.answ = answ;
     }
 
     @Override
@@ -24,12 +24,12 @@ public class CardModel implements ICard {
     }
 
     @Override
-    public String getQuestion() {
-        return question;
+    public String getQues() {
+        return ques;
     }
 
     @Override
-    public String getAnswer() {
-        return answer;
+    public String getAnsw() {
+        return answ;
     }
 }

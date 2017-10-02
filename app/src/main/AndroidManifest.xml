@@ -10,12 +10,20 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light">
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+                android:name=".SecondActivity"
+                android:label="@string/second_title"
+                android:parentActivityName=".MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="ca.wlu.tianran.unothing.MainActivity"/>
         </activity>
     </application>
 

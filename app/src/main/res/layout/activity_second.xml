@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:context="ca.wlu.tianran.unothing.SecondActivity"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+    <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:columnCount="2" android:paddingTop="16dp" tools:ignore="UselessParent">
+
+        <TextView
+                android:text="@string/ques_label"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/quesLbl"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/quesIpt" android:layout_marginStart="16dp" tools:ignore="LabelFor"
+                android:hint="@string/ques_hint"/>
+        <TextView
+                android:text="@string/answ_label"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/answLbl"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/answIpt" android:layout_marginStart="16dp" tools:ignore="LabelFor"
+                android:hint="@string/answ_hint"/>
+        <TextView
+                android:text="@string/image_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/imageLbl" android:textSize="16sp"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/imageIpt" android:textSize="16sp" android:layout_marginStart="16dp"
+                tools:ignore="LabelFor" android:hint="@string/image_hint"/>
+        <Button
+                android:text="@string/done_button"
+                android:layout_columnSpan="2"
+                android:textSize="20sp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" android:id="@+id/doneBtn"
+                android:layout_gravity="bottom|center_horizontal" style="@style/Widget.AppCompat.Button.Colored"/>
+    </GridLayout>
+</LinearLayout>
