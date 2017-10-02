@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ICardView, Compou
     private ToggleButton answTgl;
     private TextView answText;
     private Button nextBtn;
-    public static ICardPresenter cardPresenter;
+    public ICardPresenter cardPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
