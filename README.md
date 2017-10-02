@@ -2,9 +2,6 @@
 
 Unothing => You know nothing, Jon Snow
 
-![](https://github.com/BIOTONIC/Unothing/blob/master/screenshots/s1.png)
-![](https://github.com/BIOTONIC/Unothing/blob/master/screenshots/s2.png)
-
 #### Assignment1 Features
 
 - Customized rounded icon
