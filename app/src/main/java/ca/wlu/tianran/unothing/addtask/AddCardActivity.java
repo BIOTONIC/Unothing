@@ -1,4 +1,4 @@
-package ca.wlu.tianran.unothing;
+package ca.wlu.tianran.unothing.addtask;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,16 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import ca.wlu.tianran.unothing.R;
 
-import java.util.regex.Pattern;
-
-public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddCardActivity extends AppCompatActivity implements AddCardContract.View, View.OnClickListener {
 
     private EditText quesIpt;
     private EditText answIpt;
     private EditText imageIpt;
     private Button doneBtn;
     private Intent data;
+
+    private AddCardContract.Presenter addCardPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,9 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
 
         // add listener
         doneBtn.setOnClickListener(this);
+
+        // set presenter
+        addCardPresenter = new AddCardPresenter(this);
     }
 
     // when done button is clicked
@@ -42,19 +46,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                 String newQues = quesIpt.getText().toString();
                 String newAnsw = answIpt.getText().toString();
                 String newImage = imageIpt.getText().toString();
-                if (newQues != null && newAnsw != null && Pattern.matches("img[0-7]", newImage)) {
-                    data = new Intent();
-                    data.putExtra("newQues", newQues);
-                    data.putExtra("newAnsw", newAnsw);
-                    data.putExtra("newImage", newImage);
-                    this.setResult(RESULT_OK, data);
-                    this.finish();
-                } else if (newQues==null || newAnsw == null || newImage == null) {
-                    Toast.makeText(this, "Please fill the form",Toast.LENGTH_SHORT).show();
-                } else {
-                    imageIpt.setText("");
-                    Toast.makeText(this, "Image resource doesn't exist.",Toast.LENGTH_SHORT).show();
-                }
+                addCardPresenter.processData(newQues, newAnsw, newImage);
                 break;
             default:
                 break;
@@ -64,8 +56,24 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.i("TR","Back");
         data = new Intent();
         this.setResult(RESULT_CANCELED, data);
+    }
+
+    @Override
+    public void sendData(Intent data) {
+        this.setResult(RESULT_OK, data);
+        this.finish();
+    }
+
+    @Override
+    public void alertEmpty() {
+        Toast.makeText(this, "Please fill the form", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void alertImgNotExist() {
+        imageIpt.setText("");
+        Toast.makeText(this, "Image resource doesn't exist.", Toast.LENGTH_SHORT).show();
     }
 }

@@ -9,7 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".MainActivity"
+        <activity android:name=".cards.CardsActivity"
                   android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,12 +18,12 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".SecondActivity"
-                android:label="@string/second_title"
-                android:parentActivityName=".MainActivity">
+                android:name=".addtask.AddCardActivity"
+                android:label="@string/add_card_title"
+                android:parentActivityName=".cards.CardsActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="ca.wlu.tianran.unothing.MainActivity"/>
+                    android:value="ca.wlu.tianran.unothing.cards.CardsActivity"/>
         </activity>
     </application>
 

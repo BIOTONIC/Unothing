@@ -1,4 +1,4 @@
-package ca.wlu.tianran.unothing;
+package ca.wlu.tianran.unothing.cards;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import ca.wlu.tianran.unothing.presenter.CardPresenterImpl;
-import ca.wlu.tianran.unothing.presenter.ICardPresenter;
-import ca.wlu.tianran.unothing.view.ICardView;
+import ca.wlu.tianran.unothing.R;
+import ca.wlu.tianran.unothing.addtask.AddCardActivity;
+import ca.wlu.tianran.unothing.data.CardsRepository;
 
-public class MainActivity extends AppCompatActivity implements ICardView, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+public class CardsActivity extends AppCompatActivity implements CardsContract.View, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     private final static String LAST_CARD = "last_card";
     private final static String QUES_SHOW = "ques_show";
@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements ICardView, Compou
     private ToggleButton answTgl;
     private TextView answText;
     private Button nextBtn;
-    public ICardPresenter cardPresenter;
+
+    private CardsContract.Presenter cardPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +47,20 @@ public class MainActivity extends AppCompatActivity implements ICardView, Compou
         answTgl.setOnCheckedChangeListener(this);
         nextBtn.setOnClickListener(this);
 
-        // add presenter
-        cardPresenter = new CardPresenterImpl(
-                this,
-                getResources().getStringArray(R.array.id),
-                getResources().getStringArray(R.array.ques),
-                getResources().getStringArray(R.array.answ));
+        // create presenter
+        cardPresenter = new CardsPresenter(CardsRepository.getInstance(getApplicationContext()), this);
+
         if (savedInstanceState != null) {
             // also can get instance state in onRestoreInstanceState()
-            cardPresenter.setCurr(savedInstanceState.getInt(LAST_CARD));
+            cardPresenter.setCurrIndex(savedInstanceState.getInt(LAST_CARD));
             quesTgl.setChecked(savedInstanceState.getBoolean(QUES_SHOW));
             answTgl.setChecked(savedInstanceState.getBoolean(ANSW_SHOW));
         }
-        cardPresenter.showNext();
-        Log.i("TR", "MainActivity onCreate()");
+        cardPresenter.getNextCard();
+    }
+
+    public void setPresenter(CardsContract.Presenter presenter) {
+        cardPresenter = presenter;
     }
 
     // first tried to use onConfigurationChanged() to intercept orientation changing event
@@ -69,10 +70,9 @@ public class MainActivity extends AppCompatActivity implements ICardView, Compou
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(LAST_CARD, cardPresenter.getLast());
+        outState.putInt(LAST_CARD, cardPresenter.getLastIndex());
         outState.putBoolean(QUES_SHOW, quesTgl.isChecked());
         outState.putBoolean(ANSW_SHOW, answTgl.isChecked());
-        Log.i("TR", "MainActivity onSaveInstanceState()");
     }
 
     // inflate menu in action bar
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements ICardView, Compou
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                // MainActivity is parent of SecondActivity
-                // plus MainActivity's launch mode is singleTask
-                // when returning from SecondActivity, MainActivity haven't changed
-                startActivityForResult(new Intent(this, SecondActivity.class), REQUEST_CODE);
+                // CardsActivity is parent of AddCardActivity
+                // plus CardsActivity's launch mode is singleTask
+                // when returning from AddCardActivity, CardsActivity haven't changed
+                startActivityForResult(new Intent(this, AddCardActivity.class), REQUEST_CODE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements ICardView, Compou
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.nextBtn:
-                cardPresenter.showNext();
+                cardPresenter.getNextCard();
                 break;
             default:
                 break;
