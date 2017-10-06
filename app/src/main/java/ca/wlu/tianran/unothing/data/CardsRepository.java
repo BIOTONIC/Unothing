@@ -6,7 +6,7 @@ import ca.wlu.tianran.unothing.R;
 import java.util.ArrayList;
 
 public class CardsRepository {
-    private static CardsRepository INSTANCE = null;
+    public static CardsRepository INSTANCE = null;
 
     private ArrayList<Card> cards;
     private String[] ids;
@@ -52,6 +52,9 @@ public class CardsRepository {
         return cards.size();
     }
     public void addCard(Card card) {
+        if(card.id == -1){
+            card.setId(cards.size());
+        }
         cards.add(card);
     }
 }

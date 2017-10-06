@@ -12,6 +12,8 @@ import ca.wlu.tianran.unothing.R;
 
 public class AddCardActivity extends AppCompatActivity implements AddCardContract.View, View.OnClickListener {
 
+    public final static String PARCEL_KEY = "1223";
+
     private EditText quesIpt;
     private EditText answIpt;
     private EditText imageIpt;
@@ -46,7 +48,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 String newQues = quesIpt.getText().toString();
                 String newAnsw = answIpt.getText().toString();
                 String newImage = imageIpt.getText().toString();
-                addCardPresenter.processData(newQues, newAnsw, newImage);
+                addCardPresenter.processData(PARCEL_KEY, newQues, newAnsw, newImage);
                 break;
             default:
                 break;

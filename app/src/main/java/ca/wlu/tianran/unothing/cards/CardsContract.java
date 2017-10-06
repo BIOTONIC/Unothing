@@ -1,5 +1,7 @@
 package ca.wlu.tianran.unothing.cards;
 
+import android.content.Intent;
+
 public interface CardsContract {
     interface Presenter{
         String getQues();
@@ -12,7 +14,7 @@ public interface CardsContract {
 
         void getNextCard();
 
-        Boolean addCard(String newQues, String newAnsw, String newImage);
+        Boolean addCard(Intent data, String KEY);
     }
 
     interface View{

@@ -1,5 +1,6 @@
 package ca.wlu.tianran.unothing.cards;
 
+import android.content.Intent;
 import ca.wlu.tianran.unothing.data.Card;
 import ca.wlu.tianran.unothing.data.CardsRepository;
 
@@ -53,10 +54,10 @@ public class CardsPresenter implements CardsContract.Presenter {
     }
 
     @Override
-    public Boolean addCard(String newQues, String newAnsw, String newImage) {
-        if (newQues != null && newAnsw != null && Pattern.matches("img[0-7]", newImage)) {
-            Card newCard = new Card(cardsRepository.getSize(), newImage, newQues, newAnsw);
-            cardsRepository.addCard(newCard);
+    public Boolean addCard(Intent data, String KEY) {
+        Card card = data.getParcelableExtra(KEY);
+        if (card.getQues() != null && card.getAnsw() != null && Pattern.matches("img[0-7]", card.getImage())) {
+            cardsRepository.addCard(card);
             return true;
         } else {
             return false;

@@ -3,7 +3,6 @@ package ca.wlu.tianran.unothing.cards;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -102,11 +101,7 @@ public class CardsActivity extends AppCompatActivity implements CardsContract.Vi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) {
             case RESULT_OK:
-                Bundle b = data.getExtras();
-                String newQues = b.getString("newQues");
-                String newAnsw = b.getString("newAnsw");
-                String newImage = b.getString("newImage");
-                if (cardPresenter.addCard(newQues, newAnsw, newImage)) {
+                if (cardPresenter.addCard(data, AddCardActivity.PARCEL_KEY)) {
                     Toast.makeText(this, "Add card success.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Failed to add card.", Toast.LENGTH_SHORT).show();
