@@ -30,8 +30,10 @@ Unothing => You know nothing, Jon Snow
 
 ### Assignment3 Features
 
+- Multi fragments in one activity
+
 - RecyclerView
 
 ![](./screenshots/s5.png)
 
-- Multi fragments in one activity
+
