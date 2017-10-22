@@ -1,18 +1,17 @@
-package ca.wlu.tianran.unothing.addtask;
+package ca.wlu.tianran.unothing.addcard;
 
+import ca.wlu.tianran.unothing.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import ca.wlu.tianran.unothing.R;
 
 public class AddCardActivity extends AppCompatActivity implements AddCardContract.View, View.OnClickListener {
 
-    public final static String PARCEL_KEY = "1223";
+    public final static String PARCEL_KEY = "parcel_key";
 
     private EditText quesIpt;
     private EditText answIpt;
@@ -23,9 +22,14 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     private AddCardContract.Presenter addCardPresenter;
 
     @Override
+    public void setPresenter(AddCardContract.Presenter presenter) {
+        addCardPresenter = presenter;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_add_card);
 
         // find view
         quesIpt = (EditText) findViewById(R.id.quesIpt);
@@ -67,6 +71,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
         this.setResult(RESULT_OK, data);
         this.finish();
     }
+
 
     @Override
     public void alertEmpty() {

@@ -1,16 +1,17 @@
-package ca.wlu.tianran.unothing.addtask;
+package ca.wlu.tianran.unothing.addcard;
 
-import android.content.Intent;
-import ca.wlu.tianran.unothing.cards.CardsContract;
 import ca.wlu.tianran.unothing.data.Card;
+import android.content.Intent;
+import android.os.Parcelable;
 
 import java.util.regex.Pattern;
 
 public class AddCardPresenter implements AddCardContract.Presenter {
-    private AddCardContract.View addCardView;
+    private final AddCardContract.View addCardView;
 
     public AddCardPresenter(AddCardContract.View addCardView) {
         this.addCardView = addCardView;
+        this.addCardView.setPresenter(this);
     }
 
     @Override
@@ -18,7 +19,7 @@ public class AddCardPresenter implements AddCardContract.Presenter {
         if (ques != null && answ != null && Pattern.matches("img[0-7]", image)) {
             Card card = new Card(image, ques, answ);
             Intent data = new Intent();
-            data.putExtra(KEY, card);
+            data.putExtra(KEY, (Parcelable) card);
             addCardView.sendData(data);
         } else if (ques == null || answ == null || image == null) {
             addCardView.alertEmpty();

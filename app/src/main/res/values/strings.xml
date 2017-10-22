@@ -13,7 +13,8 @@
     <string name="answ_label">New Answer:</string>
     <string name="image_label">New Image:</string>
     <string name="done_button">Done</string>
-    <string name="ques_hint"></string>
-    <string name="answ_hint"></string>
+    <string name="ques_hint"/>
+    <string name="answ_hint"/>
     <string name="image_hint">\"img0\" - \"img7\"</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+>
+
+    <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry" android:paddingEnd="12dp" android:paddingTop="12dp" android:paddingStart="12dp"
+            android:paddingBottom="12dp">
+
+        <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp" app:srcCompat="@drawable/img0" android:id="@+id/itemImage"
+                android:contentDescription="@string/img_desc"
+                android:layout_gravity="center" android:scaleType="fitXY"
+        />
+    </FrameLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry" android:paddingTop="12dp">
+
+        <TextView
+                android:text="@string/hide_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:id="@+id/itemQues" android:layout_weight="1"
+                android:fontFamily="casual" android:textSize="16sp"/>
+    </LinearLayout>
+</LinearLayout>

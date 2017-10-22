@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:context="ca.wlu.tianran.unothing.addtask.AddCardActivity"
+        tools:context="ca.wlu.tianran.unothing.addcard.AddCardActivity"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp">
     <GridLayout

@@ -9,8 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".cards.CardsActivity"
-                  android:launchMode="singleTask">
+        <activity android:name=".cards.CardsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -18,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".addtask.AddCardActivity"
+                android:name=".addcard.AddCardActivity"
                 android:label="@string/add_card_title"
                 android:parentActivityName=".cards.CardsActivity">
             <meta-data

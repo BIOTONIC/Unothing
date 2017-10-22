@@ -1,17 +1,17 @@
 package ca.wlu.tianran.unothing.data;
 
-import android.content.Context;
 import ca.wlu.tianran.unothing.R;
+import android.content.Context;
 
 import java.util.ArrayList;
 
 public class CardsRepository {
-    public static CardsRepository INSTANCE = null;
+    private static CardsRepository INSTANCE = null;
 
     private ArrayList<Card> cards;
-    private String[] ids;
-    private String[] quess;
-    private String[] answs;
+    private final String[] ids;
+    private final String[] quess;
+    private final String[] answs;
 
     private CardsRepository(Context context) {
         ids = context.getResources().getStringArray(R.array.id);
@@ -48,11 +48,12 @@ public class CardsRepository {
         return cards.get(i).getImage();
     }
 
-    public int getSize(){
+    public int getSize() {
         return cards.size();
     }
+
     public void addCard(Card card) {
-        if(card.id == -1){
+        if (card.getId() == -1) {
             card.setId(cards.size());
         }
         cards.add(card);

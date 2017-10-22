@@ -1,13 +1,15 @@
-package ca.wlu.tianran.unothing.addtask;
+package ca.wlu.tianran.unothing.addcard;
 
 import android.content.Intent;
 
-public interface AddCardContract {
+interface AddCardContract {
     interface Presenter{
         void processData(String KEY, String ques, String answ, String image);
     }
     interface View{
-        void sendData(Intent data);
+        void setPresenter(Presenter presenter);
+
+        void sendData(Intent intent);
 
         void alertEmpty();
 
