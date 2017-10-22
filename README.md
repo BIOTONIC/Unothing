@@ -28,7 +28,7 @@ Unothing => You know nothing, Jon Snow
 
 ![](./screenshots/s4.png)
 
-#### Assignment3 Features
+### Assignment3 Features
 
 - RecyclerView
 
