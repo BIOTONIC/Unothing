@@ -1,5 +1,6 @@
 package ca.wlu.tianran.unothing.cards;
 
+import android.support.design.widget.Snackbar;
 import ca.wlu.tianran.unothing.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import ca.wlu.tianran.unothing.data.Card;
+import ca.wlu.tianran.unothing.util.SimpleDividerItemDecoration;
+import ca.wlu.tianran.unothing.util.SwipeItemLayout;
 
 import java.io.Serializable;
 
@@ -19,6 +23,7 @@ public class CardListFragment extends Fragment
     private final static String SELECTED_POS = "selected_pos";
 
     private CardsContract.Presenter cardsPresenter;
+    private RecyclerView.Adapter recyclerAdapter;
     private ActionBar actionBar;
 
     // system will call the public empty constructor after orientation has changed
@@ -65,11 +70,13 @@ public class CardListFragment extends Fragment
         recyclerView.setLayoutManager(recyclerLayoutManager);
 
         // RecyclerView Adapter & Divider
-        RecyclerView.Adapter recyclerAdapter = new CardsRecyclerAdapter(cardsPresenter, this);
+        recyclerAdapter = new CardsRecyclerAdapter(cardsPresenter, this);
         recyclerView.setAdapter(recyclerAdapter);
-        CardListDecoration decoration = new CardListDecoration(
-                this.getContext(), getResources().getBoolean(R.bool.is_landscape));
+        SimpleDividerItemDecoration decoration = new SimpleDividerItemDecoration(getContext());
         recyclerView.addItemDecoration(decoration);
+
+        // set item touch listener for swiping
+        recyclerView.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
 
         return view;
     }
@@ -78,6 +85,23 @@ public class CardListFragment extends Fragment
         outState.putSerializable(PRESENTER, (Serializable) cardsPresenter);
         outState.putInt(SELECTED_POS, CardsRecyclerAdapter.selectedPos);
         super.onSaveInstanceState(outState);
+    }
+
+    // when one card is deleted
+    @Override
+    public void onDeleteCard(View view, Card card) {
+        Snackbar snackbar = Snackbar.make(view, "Delete a card success.", Snackbar.LENGTH_SHORT);
+        snackbar.setAction("UNDO", new View.OnClickListener() {
+            public void onClick(View v) {
+                if(cardsPresenter.addCard(card)){
+                    Snackbar.make(v, "Add a card success.", Snackbar.LENGTH_SHORT).show();
+                    recyclerAdapter.notifyDataSetChanged();
+                }else{
+                    Snackbar.make(v, "Failed to add a card.", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+        snackbar.show();
     }
 
     // when item of recycler view is clicked

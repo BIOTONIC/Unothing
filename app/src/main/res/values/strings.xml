@@ -17,4 +17,5 @@
     <string name="answ_hint"/>
     <string name="image_hint">\"img0\" - \"img7\"</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="swipe_text">Delete</string>
 </resources>

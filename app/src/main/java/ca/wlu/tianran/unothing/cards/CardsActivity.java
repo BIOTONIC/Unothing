@@ -1,7 +1,9 @@
 package ca.wlu.tianran.unothing.cards;
 
+import android.support.design.widget.Snackbar;
 import ca.wlu.tianran.unothing.R;
 import ca.wlu.tianran.unothing.addcard.AddCardActivity;
+import ca.wlu.tianran.unothing.data.Card;
 import ca.wlu.tianran.unothing.data.CardsRepository;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -85,10 +87,11 @@ public class CardsActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             switch (resultCode) {
                 case RESULT_OK:
-                    if (cardsPresenter.addCard(data, AddCardActivity.PARCEL_KEY)) {
-                        Toast.makeText(this, "Add card success.", Toast.LENGTH_SHORT).show();
+                    Card card = data.getParcelableExtra(AddCardActivity.PARCEL_KEY);
+                    if (cardsPresenter.addCard(card)) {
+                        Snackbar.make(getWindow().getDecorView(), "Add a card success.", Snackbar.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(this, "Failed to add card.", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getWindow().getDecorView(), "Failed to add a card.", Snackbar.LENGTH_SHORT).show();
                     }
                     break;
                 default:

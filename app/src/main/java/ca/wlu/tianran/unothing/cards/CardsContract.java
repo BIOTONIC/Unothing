@@ -2,11 +2,10 @@ package ca.wlu.tianran.unothing.cards;
 
 import android.content.Intent;
 import android.view.View;
+import ca.wlu.tianran.unothing.data.Card;
 
 public interface CardsContract {
     interface Presenter {
-        // this.listView is the copy of the reference of input listView
-        // so this.listView.setPresenter(this) equals listView.setPresenter(this)
         void setListView(ListView listView);
 
         void setDetailView(DetailView detailView);
@@ -17,13 +16,15 @@ public interface CardsContract {
 
         int getLastIndex();
 
-        void getCard(int i);
+        void loadCard(int i);
 
-        void getCurrCard();
+        void loadCurrCard();
 
-        void getNextCard();
+        void loadNextCard();
 
-        Boolean addCard(Intent data, String KEY);
+        Boolean addCard(Card card);
+
+        void deleteCard(View view, int pos);
 
         void onBindListViewHolder(CardsRecyclerAdapter.ViewHolder holder, int position, int selectedPos);
 
@@ -41,6 +42,7 @@ public interface CardsContract {
     }
 
     interface ListView {
+        void onDeleteCard(View view, Card card);
     }
 
     interface ItemClickListener {

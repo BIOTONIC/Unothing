@@ -10,8 +10,6 @@ Unothing => You know nothing, Jon Snow
 
 - ConstraintLayout
 
-  ![](./screenshots/s1.png)
-
 - MVP pattern
 
 - Using XML file to store text data
@@ -22,11 +20,11 @@ Unothing => You know nothing, Jon Snow
 
 - Adaptive layout
 
-![](./screenshots/s2.png)
+![](./screenshots/s1.png)
 
 - Adding new card
 
-![](./screenshots/s4.png)
+![](./screenshots/s2.png)
 
 ### Assignment3 Features
 
@@ -34,6 +32,12 @@ Unothing => You know nothing, Jon Snow
 
 - RecyclerView
 
-![](./screenshots/s5.png)
+### Assignment4 Features
+
+- Loading data from SQLite
+
+- Deleting card
+
+![](./screenshots/s3.png)
 
 

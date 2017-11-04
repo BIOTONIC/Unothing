@@ -3,32 +3,30 @@ package ca.wlu.tianran.unothing.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Card implements Parcelable{
-    private int id;
+import java.util.UUID;
+
+public class Card implements Parcelable {
+    private UUID id;
     private final String image;
     private final String ques;
     private final String answ;
 
-    public Card(int id, String image, String ques, String answ) {
-        this.id = id;
-        this.image = image;
-        this.ques = ques;
-        this.answ = answ;
-    }
-
     public Card(String image, String ques, String answ) {
-        this.id = -1;
+        this.id = UUID.randomUUID();
         this.image = image;
         this.ques = ques;
         this.answ = answ;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Card(String id, String image, String ques, String answ) {
+        this.id = UUID.fromString(id);
+        this.image = image;
+        this.ques = ques;
+        this.answ = answ;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public String getImage() {
@@ -44,7 +42,7 @@ public class Card implements Parcelable{
     }
 
     private Card(Parcel in) {
-        id = in.readInt();
+        id = (UUID) in.readSerializable();
         image = in.readString();
         ques = in.readString();
         answ = in.readString();
@@ -57,7 +55,7 @@ public class Card implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeSerializable(id);
         dest.writeString(image);
         dest.writeString(ques);
         dest.writeString(answ);

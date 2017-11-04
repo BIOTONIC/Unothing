@@ -1,22 +1,21 @@
 package ca.wlu.tianran.unothing.data;
 
-import ca.wlu.tianran.unothing.R;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 
 import java.util.ArrayList;
 
+
 public class CardsRepository {
     private static CardsRepository INSTANCE = null;
 
+    private DbHelper dbHelper;
     private ArrayList<Card> cards;
-    private final String[] ids;
-    private final String[] quess;
-    private final String[] answs;
 
     private CardsRepository(Context context) {
-        ids = context.getResources().getStringArray(R.array.id);
-        quess = context.getResources().getStringArray(R.array.ques);
-        answs = context.getResources().getStringArray(R.array.answ);
+        dbHelper = new DbHelper(context);
     }
 
     public static synchronized CardsRepository getInstance(Context context) {
@@ -26,14 +25,8 @@ public class CardsRepository {
         return INSTANCE;
     }
 
-    public void loadCards() {
-        if (cards == null) {
-            int len = Math.min(Math.min(ids.length, quess.length), answs.length);
-            cards = new ArrayList<>(len);
-            for (int i = 0; i < len; i++) {
-                cards.add(new Card(i, "img" + ids[i], quess[i], answs[i]));
-            }
-        }
+    public String getIdByPos(int i) {
+        return cards.get(i).getId();
     }
 
     public String getQues(int i) {
@@ -52,10 +45,66 @@ public class CardsRepository {
         return cards.size();
     }
 
-    public void addCard(Card card) {
-        if (card.getId() == -1) {
-            card.setId(cards.size());
+    public void loadCards() {
+        cards = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] projection = {DbHelper.COL_ID, DbHelper.COL_IMAGE,
+                DbHelper.COL_QUES, DbHelper.COL_ANSW};
+        Cursor c = db.query(DbHelper.TABLE_CARD, projection,
+                null, null, null, null, null);
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                String id = c.getString(c.getColumnIndexOrThrow(DbHelper.COL_ID));
+                String image = c.getString(c.getColumnIndexOrThrow(DbHelper.COL_IMAGE));
+                String ques = c.getString(c.getColumnIndexOrThrow(DbHelper.COL_QUES));
+                String answ = c.getString(c.getColumnIndexOrThrow(DbHelper.COL_ANSW));
+                Card card = new Card(id, image, ques, answ);
+                cards.add(card);
+            }
         }
-        cards.add(card);
+        if (c != null) {
+            c.close();
+        }
+        db.close();
+    }
+
+    public Card getCard(int pos) {
+        return cards.get(pos);
+    }
+
+    public boolean addCard(Card card) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.COL_ID, card.getId());
+        values.put(DbHelper.COL_IMAGE, card.getImage());
+        values.put(DbHelper.COL_QUES, card.getQues());
+        values.put(DbHelper.COL_ANSW, card.getAnsw());
+        long result = db.insert(DbHelper.TABLE_CARD, null, values);
+        db.close();
+
+        loadCards();
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteCard(int pos) {
+        String id = cards.get(pos).getId();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String selection = DbHelper.COL_ID + " like ?";
+        String[] selectionArgs = {id};
+        int result = db.delete(dbHelper.TABLE_CARD, selection, selectionArgs);
+        db.close();
+
+        loadCards();
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

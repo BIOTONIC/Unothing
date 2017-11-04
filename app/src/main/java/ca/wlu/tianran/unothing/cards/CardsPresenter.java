@@ -1,6 +1,7 @@
 package ca.wlu.tianran.unothing.cards;
 
 import android.graphics.Color;
+import android.view.View;
 import ca.wlu.tianran.unothing.data.Card;
 import ca.wlu.tianran.unothing.data.CardsRepository;
 import android.content.Intent;
@@ -20,18 +21,14 @@ public class CardsPresenter implements CardsContract.Presenter, Serializable {
         this.cardsRepository.loadCards();
     }
 
-    // this.listView is the copy of the reference of input listView
-    // so this.listView.setPresenter(this) equals listView.setPresenter(this)
     @Override
     public void setListView(CardsContract.ListView listView) {
         this.listView = listView;
-        //this.listView.setPresenter(this);
     }
 
     @Override
     public void setDetailView(CardsContract.DetailView detailView) {
         this.detailView = detailView;
-        //this.detailView.setPresenter(this);
     }
 
     @Override
@@ -54,17 +51,17 @@ public class CardsPresenter implements CardsContract.Presenter, Serializable {
     }
 
     @Override
-    public void getCard(int i) {
+    public void loadCard(int i) {
         if (i < cardsRepository.getSize()) {
             curr = i;
         } else {
             curr = 0;
         }
-        getCurrCard();
+        loadCurrCard();
     }
 
     @Override
-    public void getCurrCard() {
+    public void loadCurrCard() {
         detailView.showImg(cardsRepository.getImage(curr));
         detailView.hideQues();
         detailView.hideAnsw();
@@ -72,22 +69,28 @@ public class CardsPresenter implements CardsContract.Presenter, Serializable {
     }
 
     @Override
-    public void getNextCard() {
+    public void loadNextCard() {
         curr += 1;
         if (curr >= cardsRepository.getSize()) {
             curr = 0;
         }
-        getCurrCard();
+        loadCurrCard();
+    }
+
+    public Boolean addCard(Card card) {
+        if (card.getQues() != null && card.getAnsw() != null && Pattern.matches("img[0-7]", card.getImage())) {
+            return cardsRepository.addCard(card);
+        }
+        return false;
     }
 
     @Override
-    public Boolean addCard(Intent data, String KEY) {
-        Card card = data.getParcelableExtra(KEY);
-        if (card.getQues() != null && card.getAnsw() != null && Pattern.matches("img[0-7]", card.getImage())) {
-            cardsRepository.addCard(card);
-            return true;
+    public void deleteCard(View view, int pos) {
+        Card card = cardsRepository.getCard(pos);
+        boolean result = cardsRepository.deleteCard(pos);
+        if (card != null && result) {
+            listView.onDeleteCard(view, card);
         }
-        return false;
     }
 
     @Override

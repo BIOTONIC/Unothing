@@ -76,14 +76,14 @@ public class CardDetailFragment extends Fragment
             cardsPresenter = (CardsContract.Presenter) savedInstanceState.getSerializable(PRESENTER);
             cardsPresenter.setDetailView(this);
             //cardsPresenter.setCurrIndex(savedInstanceState.getInt(LAST_CARD));
-            cardsPresenter.getCurrCard();
+            cardsPresenter.loadCurrCard();
             quesTgl.setChecked(savedInstanceState.getBoolean(QUES_SHOW));
             answTgl.setChecked(savedInstanceState.getBoolean(ANSW_SHOW));
         } else {
             int position = getArguments().getInt(ITEM_POSITION);
             cardsPresenter = (CardsContract.Presenter) getArguments().getSerializable(PRESENTER);
             cardsPresenter.setDetailView(this);
-            cardsPresenter.getCard(position);
+            cardsPresenter.loadCard(position);
         }
         return view;
     }
@@ -113,7 +113,7 @@ public class CardDetailFragment extends Fragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.nextBtn:
-                cardsPresenter.getNextCard();
+                cardsPresenter.loadNextCard();
                 break;
             default:
                 break;
